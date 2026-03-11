@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Curiosidades e fatos históricos da Ciência da Computação">
+    <meta name="author" content="Vinícius">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquivo Curioso da Computação</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-base-200 text-base-content">
+
+    <div class="navbar bg-base-100 shadow-md">
+        <div class="flex-1">
+            <a class="btn btn-ghost text-xl">Arquivo Curioso da Computação</a>
+        </div>
+        <div class="flex-none">
+            <ul class="menu menu-horizontal px-1 hidden md:flex">
+                <li><a href="#pioneiros">Pioneiros</a></li>
+                <li><a href="#bugs">Bugs</a></li>
+                <li><a href="#internet">Internet</a></li>
+                <li><a href="#linguagens">Linguagens</a></li>
+                <li><a href="#extras">Extras</a></li>
+                <li><a href="#formulario">Formulário</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto p-6">
+
+        <header class="hero bg-base-100 rounded-2xl shadow-md mb-8">
+            <div class="hero-content text-center py-12">
+                <div>
+                    <h1 class="text-4xl font-bold">Arquivo (Quase) Perdido da Ciência da Computação</h1>
+                    <p class="py-4 text-lg">
+                        Uma página com fatos históricos, curiosidades e acontecimentos marcantes da computação.
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <main class="space-y-8">
+
+            <section id="pioneiros" class="bg-base-100 rounded-2xl shadow p-6">
+                <h2 class="text-2xl font-bold mb-4">Pioneiros da Computação</h2>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="card bg-base-200 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">Ada Lovelace</h3>
+                            <p>É considerada por muitos como a primeira programadora da história.</p>
+                            <details class="mt-2">
+                                <summary class="cursor-pointer font-semibold">Ver mais</summary>
+                                <p class="mt-2">Ela criou um algoritmo voltado para a Máquina Analítica, muito antes dos computadores modernos.</p>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="card bg-base-200 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">Alan Turing</h3>
+                            <p>Foi essencial para a teoria da computação e para a criação da ideia de máquina universal.</p>
+                            <blockquote class="border-l-4 border-primary pl-4 italic mt-2">
+                                “Podemos ver apenas um pouco do futuro, mas o suficiente para perceber que há muito a fazer.”
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert mt-4">
+                    <span><strong>Curiosidade:</strong> durante muitos anos, boa parte do trabalho de Turing ficou em sigilo.</span>
+                </div>
+            </section>
+
+            <section id="bugs" class="bg-base-100 rounded-2xl shadow p-6">
+                <h2 class="text-2xl font-bold mb-4">Histórias de Bugs</h2>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <article class="card bg-base-200 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">O primeiro bug real</h3>
+                            <p>Em 1947, uma mariposa foi encontrada em um computador, e isso ficou marcado como um dos casos mais famosos da história.</p>
+                            <figure class="mt-2">
+                                <figcaption class="text-sm opacity-70">Registro do inseto colado no relatório técnico.</figcaption>
+                            </figure>
+                        </div>
+                    </article>
+
+                    <article class="card bg-base-200 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">Vírus Creeper</h3>
+                            <p>É lembrado como um dos primeiros programas autorreplicantes da história.</p>
+                            <pre class="bg-neutral text-neutral-content p-3 rounded-lg text-sm overflow-x-auto">I'M THE CREEPER : CATCH ME IF YOU CAN</pre>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section id="internet" class="bg-base-100 rounded-2xl shadow p-6">
+                <h2 class="text-2xl font-bold mb-4">Curiosidades da Internet</h2>
+
+                <div class="grid md:grid-cols-3 gap-4">
+                    <article class="card bg-base-200 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">Primeiro website</h3>
+                            <p>Foi criado em 1991 por Tim Berners-Lee e marcou o começo da web como conhecemos hoje.</p>
+                        </div>
+                    </article>
+
+                    <article class="card bg-base-200 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">ARPANET</h3>
+                            <p>Foi a principal precursora da internet moderna.</p>
+                            <ul class="list-disc list-inside mt-2">
+                                <li>Primeira mensagem enviada: “LO”</li>
+                                <li>O sistema caiu antes de completar “LOGIN”</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="card bg-base-200 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">Emoticons</h3>
+                            <p>Antes dos emojis gráficos, muita gente usava símbolos simples para demonstrar emoção:</p>
+                            <div class="flex gap-2 flex-wrap mt-2">
+                                <span class="badge badge-outline">:-)</span>
+                                <span class="badge badge-outline">;-)</span>
+                                <span class="badge badge-outline">:-D</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section id="linguagens" class="bg-base-100 rounded-2xl shadow p-6">
+                <h2 class="text-2xl font-bold mb-4">Linguagens e Tecnologias</h2>
+
+                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                    <article class="card bg-base-200 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">COBOL</h3>
+                            <p>Ainda é usado em vários sistemas antigos, principalmente bancários.</p>
+                        </div>
+                    </article>
+
+                    <article class="card bg-base-200 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">C</h3>
+                            <p>Teve grande importância no desenvolvimento de sistemas operacionais e softwares de base.</p>
+                        </div>
+                    </article>
+
+                    <article class="card bg-base-200 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">HTML</h3>
+                            <p>Não é uma linguagem de programação, mas é essencial para estruturar páginas web.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra">
+                        <caption class="caption-bottom mt-2">Tabela com alguns exemplos históricos</caption>
+                        <thead>
+                            <tr>
+                                <th>Linguagem</th>
+                                <th>Ano de criação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>COBOL</td>
+                                <td>1959</td>
+                            </tr>
+                            <tr>
+                                <td>C</td>
+                                <td>1972</td>
+                            </tr>
+                            <tr>
+                                <td>Python</td>
+                                <td>1991</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="extras" class="bg-base-100 rounded-2xl shadow p-6">
+                <h2 class="text-2xl font-bold mb-4">Fatos Extras</h2>
+
+                <div class="collapse collapse-arrow bg-base-200 mb-3">
+                    <input type="checkbox" />
+                    <div class="collapse-title font-semibold">
+                        Bluetooth tem relação com um rei viking
+                    </div>
+                    <div class="collapse-content text-sm">
+                        O nome foi inspirado em Harald Bluetooth, rei que ficou conhecido por unificar regiões da Dinamarca.
+                    </div>
+                </div>
+
+                <div class="collapse collapse-arrow bg-base-200 mb-3">
+                    <input type="checkbox" />
+                    <div class="collapse-title font-semibold">
+                        O Excel 97 escondia um simulador
+                    </div>
+                    <div class="collapse-content text-sm">
+                        Algumas versões antigas de programas tinham Easter Eggs escondidos, inclusive jogos e créditos secretos.
+                    </div>
+                </div>
+
+                <div class="collapse collapse-arrow bg-base-200">
+                    <input type="checkbox" />
+                    <div class="collapse-title font-semibold">
+                        A senha mais usada do mundo continua fraca
+                    </div>
+                    <div class="collapse-content text-sm">
+                        Senhas simples como 123456 continuam sendo muito utilizadas, o que representa um grande risco de segurança.
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-base-100 rounded-2xl shadow p-6">
+                <h2 class="text-2xl font-bold mb-4">Linha do Tempo</h2>
+
+                <ul class="timeline timeline-vertical">
+                    <li>
+                        <div class="timeline-start">1837</div>
+                        <div class="timeline-middle">●</div>
+                        <div class="timeline-end timeline-box">Máquina Analítica</div>
+                    </li>
+                    <li>
+                        <div class="timeline-start">1946</div>
+                        <div class="timeline-middle">●</div>
+                        <div class="timeline-end timeline-box">ENIAC</div>
+                    </li>
+                    <li>
+                        <div class="timeline-start">1969</div>
+                        <div class="timeline-middle">●</div>
+                        <div class="timeline-end timeline-box">ARPANET</div>
+                    </li>
+                    <li>
+                        <div class="timeline-start">1991</div>
+                        <div class="timeline-middle">●</div>
+                        <div class="timeline-end timeline-box">Primeiro site da web</div>
+                    </li>
+                    <li>
+                        <div class="timeline-start">2007</div>
+                        <div class="timeline-middle">●</div>
+                        <div class="timeline-end timeline-box">Popularização dos smartphones</div>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="formulario" class="bg-base-100 rounded-2xl shadow p-6">
+                <h2 class="text-2xl font-bold mb-4">Envie uma Curiosidade</h2>
+
+                <form class="space-y-4">
+                    <div>
+                        <label class="label">
+                            <span class="label-text">Nome</span>
+                        </label>
+                        <input type="text" class="input input-bordered w-full" name="nome" placeholder="Digite seu nome">
+                    </div>
+
+                    <div>
+                        <label class="label">
+                            <span class="label-text">Email</span>
+                        </label>
+                        <input type="email" class="input input-bordered w-full" name="email" placeholder="Digite seu email">
+                    </div>
+
+                    <div>
+                        <label class="label">
+                            <span class="label-text">Categoria</span>
+                        </label>
+                        <select class="select select-bordered w-full" name="categoria">
+                            <option>Pioneiros</option>
+                            <option>Bugs</option>
+                            <option>Internet</option>
+                            <option>Linguagens</option>
+                            <option>Curiosidades gerais</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="label">
+                            <span class="label-text">Data do fato</span>
+                        </label>
+                        <input type="date" class="input input-bordered w-full" name="data">
+                    </div>
+
+                    <div>
+                        <label class="label">
+                            <span class="label-text">Sua curiosidade</span>
+                        </label>
+                        <textarea class="textarea textarea-bordered w-full" name="curiosidade" rows="4" placeholder="Escreva aqui"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </section>
+
+        </main>
+
+        <footer class="footer footer-center bg-base-100 rounded-2xl shadow p-6 mt-8">
+            <aside>
+                <p>© 2026 - Arquivo Curioso da Computação</p>
+                <p>Contato: contato@computacao.com</p>
+            </aside>
+        </footer>
+
+    </div>
+
+</body>
+</html>

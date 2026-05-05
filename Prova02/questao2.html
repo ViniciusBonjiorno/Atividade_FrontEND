@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Grupos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  color: #e2e8f0;
+  padding: 40px 20px;
+}
+
+/* HEADER */
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.header h1 {
+  font-size: 2.8rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #38bdf8, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  margin-top: 10px;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+/* GRID */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* CARD */
+
+.card {
+  position: relative;
+  padding: 2px;
+  border-radius: 20px;
+  background: linear-gradient(130deg, #38bdf8, #a78bfa, #22c55e);
+}
+
+.card-inner {
+  background: #020617;
+  border-radius: 18px;
+  padding: 25px;
+  height: 100%;
+  transition: 0.3s;
+}
+
+.card:hover .card-inner {
+  transform: translateY(-6px);
+}
+
+/* TITULO */
+
+.card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+}
+
+/* LISTA */
+
+.list {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.list li {
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  background: rgba(255,255,255,0.03);
+  transition: 0.2s;
+}
+
+.list li:hover {
+  background: rgba(56,189,248,0.2);
+}
+
+/* BOTÃO */
+
+.btn {
+  background: linear-gradient(90deg, #38bdf8, #a78bfa);
+  border: none;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+/* TEXTO EXTRA */
+
+.extra {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  display: none;
+  line-height: 1.5;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>Grupos da Competição</h1>
+  <p>Informações rápidas e curiosidades</p>
+</div>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="card-inner">
+      <h2>Grupo A</h2>
+      <ul class="list">
+        <li>México</li>
+        <li>África do Sul</li>
+        <li>Coreia do Sul</li>
+        <li>República Tcheca</li>
+      </ul>
+      <button class="btn" onclick="toggle(this)">Ver mais</button>
+      <div class="extra">
+        Jogo de abertura será México x África do Sul. Confrontos com asiáticos e europeus são equilibrados.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-inner">
+      <h2>Grupo B</h2>
+      <ul class="list">
+        <li>Canadá</li>
+        <li>Suíça</li>
+        <li>Catar</li>
+        <li>Bósnia</li>
+      </ul>
+      <button class="btn" onclick="toggle(this)">Ver mais</button>
+      <div class="extra">
+        Canadá joga em casa. Suíça e Catar já tiveram confrontos recentes.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-inner">
+      <h2>Grupo C</h2>
+      <ul class="list">
+        <li>Brasil</li>
+        <li>Marrocos</li>
+        <li>Haiti</li>
+        <li>Escócia</li>
+      </ul>
+      <button class="btn" onclick="toggle(this)">Ver mais</button>
+      <div class="extra">
+        Brasil nunca perdeu para a Escócia em Copas.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggle(btn) {
+  const text = btn.nextElementSibling;
+  text.style.display = text.style.display === "block" ? "none" : "block";
+}
+</script>
+
+</body>
+</html>

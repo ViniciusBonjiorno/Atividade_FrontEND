@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infinity Bank — Crédito para Eventos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #c0392b;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 24px;
+    }
+
+    .container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 28px;
+    }
+
+    .campo {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 6px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 13px 16px;
+      font-size: 15px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      color: #333;
+      outline: none;
+      background-color: white;
+      transition: border-color 0.2s;
+    }
+
+    select:focus, input:focus {
+      border-color: #c0392b;
+    }
+
+    /* Pacote badges */
+    .pacote-info {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      margin-bottom: 4px;
+    }
+
+    .badge {
+      flex: 1;
+      padding: 8px 4px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+      border: 2px solid transparent;
+    }
+
+    .badge.standard  { background: #f0f0f0; color: #555; border-color: #ddd; }
+    .badge.premium   { background: #fff8e1; color: #b7791f; border-color: #f6d860; }
+    .badge.deluxe    { background: #fef0f0; color: #c0392b; border-color: #f5b7b7; }
+
+    button {
+      margin-top: 8px;
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      background-color: #c0392b;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #a93226;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      background-color: #fdf9f9;
+      border: 2px solid #f5c6c6;
+      border-radius: 10px;
+      padding: 20px;
+      display: none;
+    }
+
+    #resultado h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #c0392b;
+      margin-bottom: 14px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .linha {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #555;
+      padding: 7px 0;
+      border-bottom: 1px solid #f0e0e0;
+    }
+
+    .linha:last-of-type {
+      border-bottom: none;
+    }
+
+    .linha span:last-child {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .linha.desconto span:last-child {
+      color: #1e7e3e;
+    }
+
+    .total {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 2px solid #c0392b;
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: 700;
+      color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🎉 Crédito para Eventos</h1>
+    <p class="subtitle">Infinity Bank — Simule o orçamento do seu evento</p>
+
+    <div class="campo">
+      <label>Pacote</label>
+      <select id="pacote">
+        <option value="50">Standard — R$ 50,00 por pessoa</option>
+        <option value="80">Premium — R$ 80,00 por pessoa</option>
+        <option value="120">Infinity Deluxe — R$ 120,00 por pessoa</option>
+      </select>
+    </div>
+
+    <div class="pacote-info">
+      <div class="badge standard">Standard<br>R$ 50/pax</div>
+      <div class="badge premium">⭐ Premium<br>R$ 80/pax</div>
+      <div class="badge deluxe">💎 Deluxe<br>R$ 120/pax</div>
+    </div>
+
+    <div class="campo">
+      <label>Quantidade de Convidados</label>
+      <input type="number" id="pessoas" placeholder="Ex: 150" min="1" step="1">
+    </div>
+
+    <button id="calcular">Calcular Orçamento</button>
+
+    <div id="resultado">
+      <h3>📋 Orçamento Detalhado</h3>
+      <div class="linha"><span>Pacote selecionado</span><span id="r-pacote"></span></div>
+      <div class="linha"><span>Nº de convidados</span><span id="r-pessoas"></span></div>
+      <div class="linha"><span>Custo bruto</span><span id="r-bruto"></span></div>
+      <div class="linha"><span>Taxa de serviço (10%)</span><span id="r-taxa"></span></div>
+      <div class="linha desconto" id="linha-desconto" style="display:none">
+        <span>Desconto fidelidade (5%) 🎁</span><span id="r-desconto"></span>
+      </div>
+      <div class="total">
+        <span>Total Final</span>
+        <span id="r-total"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('calcular').addEventListener('click', function() {
+      const valorPax = Number(document.getElementById('pacote').value);
+      const pessoas  = Number(document.getElementById('pessoas').value);
+
+      if (!pessoas || pessoas < 1) {
+        alert('Por favor, informe a quantidade de convidados.');
+        return;
+      }
+
+      // 1. Custo bruto
+      const bruto = valorPax * pessoas;
+
+      // 2. Taxa de serviço: 10% sobre o bruto
+      const taxa = bruto * 0.10;
+      const comTaxa = bruto + taxa;
+
+      // 3. Desconto fidelidade: 5% se mais de 100 convidados
+      let desconto = 0;
+      let total = comTaxa;
+      if (pessoas > 100) {
+        desconto = comTaxa * 0.05;
+        total = comTaxa - desconto;
+      }
+
+      const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+      const nomePacote = document.getElementById('pacote').selectedOptions[0].text.split('—')[0].trim();
+      document.getElementById('r-pacote').textContent   = nomePacote;
+      document.getElementById('r-pessoas').textContent  = `${pessoas} convidados`;
+      document.getElementById('r-bruto').textContent    = fmt(bruto);
+      document.getElementById('r-taxa').textContent     = fmt(taxa);
+      document.getElementById('r-total').textContent    = fmt(total);
+
+      const linhaDesconto = document.getElementById('linha-desconto');
+      if (pessoas > 100) {
+        document.getElementById('r-desconto').textContent = `- ${fmt(desconto)}`;
+        linhaDesconto.style.display = 'flex';
+      } else {
+        linhaDesconto.style.display = 'none';
+      }
+
+      document.getElementById('resultado').style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>

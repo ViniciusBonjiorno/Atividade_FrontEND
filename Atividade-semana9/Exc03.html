@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Média Escolar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #6c63ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 48px 40px;
+      border-radius: 16px;
+      text-align: center;
+      width: 380px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 28px;
+    }
+
+    .campo {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px 16px;
+      font-size: 15px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      color: #333;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      border-color: #6c63ff;
+    }
+
+    .notas {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .notas .campo {
+      margin-bottom: 0;
+    }
+
+    .notas input {
+      text-align: center;
+      font-size: 18px;
+    }
+
+    button {
+      margin-top: 8px;
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      background-color: #6c63ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #574fd6;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      display: none;
+      text-align: left;
+    }
+
+    #resultado.aprovado {
+      background-color: #dbeafe;
+      color: #1e40af;
+    }
+
+    #resultado.exame {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+
+    #resultado.reprovado {
+      background-color: #f8d7da;
+      color: #a71d2a;
+    }
+
+    #resultado .media {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    #resultado .detalhe {
+      font-size: 13px;
+      font-weight: 400;
+      margin-top: 4px;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🎓 Média Escolar</h1>
+    <p class="subtitle">Preencha os dados do aluno para calcular a situação final</p>
+
+    <div class="campo">
+      <label>Nome do Aluno</label>
+      <input type="text" id="nome" placeholder="Digite o nome">
+    </div>
+
+    <div class="notas">
+      <div class="campo">
+        <label>Nota 1</label>
+        <input type="number" id="nota1" placeholder="0" min="0" max="10" step="0.1">
+      </div>
+      <div class="campo">
+        <label>Nota 2</label>
+        <input type="number" id="nota2" placeholder="0" min="0" max="10" step="0.1">
+      </div>
+      <div class="campo">
+        <label>Nota 3</label>
+        <input type="number" id="nota3" placeholder="0" min="0" max="10" step="0.1">
+      </div>
+    </div>
+
+    <button id="calcular">Calcular Média</button>
+
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    document.getElementById('calcular').addEventListener('click', function() {
+      const nome = document.getElementById('nome').value.trim();
+      const nota1 = Number(document.getElementById('nota1').value);
+      const nota2 = Number(document.getElementById('nota2').value);
+      const nota3 = Number(document.getElementById('nota3').value);
+      const resultado = document.getElementById('resultado');
+
+      if (!nome) {
+        alert('Por favor, informe o nome do aluno.');
+        return;
+      }
+
+      const media = (nota1 + nota2 + nota3) / 3;
+
+      let situacao, classe, detalhe;
+
+      if (media >= 7.0) {
+        situacao = '✅ Aprovado';
+        classe = 'aprovado';
+        detalhe = `Parabéns, ${nome}! Você foi aprovado com média ${media.toFixed(2)}.`;
+      } else if (media >= 4.0) {
+        const falta = (10 - media).toFixed(2);
+        situacao = '⚠️ Exame Final';
+        classe = 'exame';
+        detalhe = `${nome} precisa de exame final. Faltam ${falta} pontos para atingir 10.`;
+      } else {
+        situacao = '❌ Reprovado';
+        classe = 'reprovado';
+        detalhe = `${nome} foi reprovado com média ${media.toFixed(2)}.`;
+      }
+
+      resultado.className = classe;
+      resultado.innerHTML = `
+        <div class="media">${situacao}</div>
+        <div>Média: <strong>${media.toFixed(2)}</strong></div>
+        <div class="detalhe">${detalhe}</div>
+      `;
+      resultado.style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>

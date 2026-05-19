@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infinity Bank — Card Guard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #1a5276;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 24px;
+    }
+
+    .container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    h1 { font-size: 22px; font-weight: 700; color: #333; margin-bottom: 4px; }
+    .subtitle { font-size: 13px; color: #888; margin-bottom: 28px; }
+
+    .campo { margin-bottom: 14px; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 6px;
+    }
+
+    .input-wrapper { position: relative; }
+
+    input#cartao {
+      width: 100%;
+      padding: 14px 48px 14px 16px;
+      font-size: 18px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      color: #333;
+      outline: none;
+      letter-spacing: 2px;
+      transition: border-color 0.2s;
+    }
+
+    input#cartao:focus { border-color: #1a5276; }
+
+    .bandeira-preview {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 22px;
+    }
+
+    button {
+      margin-top: 6px;
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      background-color: #1a5276;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover { background-color: #154360; }
+
+    /* Painel */
+    #painel {
+      margin-top: 20px;
+      border-radius: 10px;
+      border: 2px solid #e0e0e0;
+      overflow: hidden;
+      display: none;
+    }
+
+    .painel-header {
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .painel-header.valido   { background: #d4edda; color: #155724; }
+    .painel-header.invalido { background: #f8d7da; color: #721c24; }
+
+    .painel-body { padding: 6px 0; }
+
+    .info-linha {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11px 20px;
+      border-bottom: 1px solid #f4f4f4;
+      font-size: 13px;
+    }
+
+    .info-linha:last-child { border-bottom: none; }
+
+    .info-linha .chave { color: #888; font-weight: 600; }
+    .info-linha .valor { font-weight: 700; color: #333; text-align: right; }
+
+    .divisor {
+      padding: 8px 20px 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #1a5276;
+      background: #f0f5fa;
+      border-top: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🛡️ Card Guard</h1>
+  <p class="subtitle">Infinity Bank — Validação e análise de cartão de crédito</p>
+
+  <div class="campo">
+    <label>Número do Cartão</label>
+    <div class="input-wrapper">
+      <input type="text" id="cartao" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric">
+      <span class="bandeira-preview" id="bandeira-emoji">💳</span>
+    </div>
+  </div>
+
+  <button onclick="analisar()">Analisar Cartão</button>
+
+  <div id="painel">
+    <div class="painel-header" id="painel-header"></div>
+    <div class="painel-body">
+      <div class="divisor">Identificação</div>
+      <div class="info-linha"><span class="chave">Bandeira</span><span class="valor" id="r-bandeira"></span></div>
+      <div class="info-linha"><span class="chave">Banco Emissor</span><span class="valor" id="r-banco"></span></div>
+      <div class="divisor">Análise IIN</div>
+      <div class="info-linha"><span class="chave">IIN (8 primeiros)</span><span class="valor" id="r-iin"></span></div>
+      <div class="info-linha"><span class="chave">Setor Industrial</span><span class="valor" id="r-setor"></span></div>
+      <div class="info-linha"><span class="chave">Tipo de Produto</span><span class="valor" id="r-produto"></span></div>
+      <div class="divisor">Estrutura do Número</div>
+      <div class="info-linha"><span class="chave">Total de dígitos</span><span class="valor" id="r-digitos"></span></div>
+      <div class="info-linha"><span class="chave">Luhn Check</span><span class="valor" id="r-luhn"></span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Máscara automática
+  document.getElementById('cartao').addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '').slice(0, 16);
+    v = v.replace(/(.{4})/g, '$1 ').trim();
+    this.value = v;
+    // Preview da bandeira enquanto digita
+    const nums = v.replace(/\s/g, '');
+    document.getElementById('bandeira-emoji').textContent = detectarBandeiraEmoji(nums);
+  });
+
+  document.getElementById('cartao').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') analisar();
+  });
+
+  function detectarBandeiraEmoji(nums) {
+    if (/^4/.test(nums))                          return '🔵'; // Visa
+    if (/^5[1-5]/.test(nums))                     return '🔴'; // Master
+    if (/^3[47]/.test(nums))                      return '🟢'; // Amex
+    if (/^6(?:011|5)/.test(nums))                 return '🟠'; // Discover
+    if (/^(?:636368|438935|504175|451416)/.test(nums)) return '🟣'; // Elo
+    return '💳';
+  }
+
+  function luhn(nums) {
+    let soma = 0;
+    const invertido = nums.split('').reverse();
+    for (let i = 0; i < invertido.length; i++) {
+      let d = parseInt(invertido[i]);
+      if (i % 2 === 1) { // posições pares (base 0 invertido = ímpares do original)
+        d *= 2;
+        if (d > 9) d -= 9;
+      }
+      soma += d;
+    }
+    return soma % 10 === 0;
+  }
+
+  function detectarBandeira(nums) {
+    if (/^4/.test(nums))                               return { nome: 'Visa', emoji: '🔵' };
+    if (/^5[1-5]/.test(nums))                          return { nome: 'Mastercard', emoji: '🔴' };
+    if (/^3[47]/.test(nums))                           return { nome: 'American Express', emoji: '🟢' };
+    if (/^6(?:011|5)/.test(nums))                      return { nome: 'Discover', emoji: '🟠' };
+    if (/^(?:636368|438935|504175|451416)/.test(nums)) return { nome: 'Elo', emoji: '🟣' };
+    if (/^35(?:2[89]|[3-8]\d)/.test(nums))            return { nome: 'JCB', emoji: '⚪' };
+    return { nome: 'Desconhecida', emoji: '❓' };
+  }
+
+  function detectarSetor(primeiro) {
+    const setores = {
+      '1': 'Aviação e Viagens',
+      '2': 'Aviação e Viagens',
+      '3': 'Turismo e Entretenimento',
+      '4': 'Setor Bancário e Financeiro',
+      '5': 'Setor Bancário e Financeiro',
+      '6': 'Merchandising e Bancos',
+      '7': 'Petróleo e Energia',
+      '8': 'Telecomunicações',
+      '9': 'Entidades Governamentais',
+    };
+    return setores[primeiro] || 'Não identificado';
+  }
+
+  function detectarBanco(nums) {
+    const bin6 = nums.slice(0, 6);
+    const bancos = {
+      '400719': 'Barclays Bank',
+      '411111': 'JPMorgan Chase',
+      '510510': 'Citibank',
+      '512345': 'Bradesco',
+      '516715': 'Itaú Unibanco',
+      '524068': 'Banco do Brasil',
+      '531540': 'Santander',
+      '555555': 'Nubank',
+      '601100': 'Discover Financial',
+      '371449': 'American Express',
+    };
+    return bancos[bin6] || 'Banco não mapeado no IIN';
+  }
+
+  function detectarProduto(nums) {
+    const d678 = parseInt(nums.slice(5, 8));
+    if (d678 >= 600 && d678 <= 649) return 'Pré-pago';
+    if (d678 >= 650 && d678 <= 699) return 'Débito';
+    return 'Crédito';
+  }
+
+  function analisar() {
+    const raw = document.getElementById('cartao').value.replace(/\D/g, '');
+    const painel = document.getElementById('painel');
+
+    if (raw.length < 13 || raw.length > 16) {
+      alert('O cartão deve ter entre 13 e 16 dígitos.');
+      return;
+    }
+
+    const valido     = luhn(raw);
+    const bandeira   = detectarBandeira(raw);
+    const setor      = detectarSetor(raw[0]);
+    const banco      = detectarBanco(raw);
+    const produto    = detectarProduto(raw);
+    const iin        = raw.slice(0, 8);
+
+    const header = document.getElementById('painel-header');
+    if (valido) {
+      header.className = 'painel-header valido';
+      header.innerHTML = '✅ Cartão Matematicamente Válido';
+    } else {
+      header.className = 'painel-header invalido';
+      header.innerHTML = '❌ Cartão Inválido — Falha no Luhn';
+    }
+
+    document.getElementById('r-bandeira').textContent  = `${bandeira.emoji} ${bandeira.nome}`;
+    document.getElementById('r-banco').textContent     = banco;
+    document.getElementById('r-iin').textContent       = iin;
+    document.getElementById('r-setor').textContent     = setor;
+    document.getElementById('r-produto').textContent   = produto;
+    document.getElementById('r-digitos').textContent   = `${raw.length} dígitos`;
+    document.getElementById('r-luhn').textContent      = valido ? '✔ Passou' : '✘ Falhou';
+
+    painel.style.display = 'block';
+  }
+</script>
+</body>
+</html>

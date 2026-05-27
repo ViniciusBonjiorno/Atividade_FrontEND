@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Tutorial - Clone do Termo</title>
+
+  <style>
+
+    body{
+      margin:0;
+      background:#0f0f10;
+      color:#e5e5e5;
+      font-family:Arial, sans-serif;
+      line-height:1.7;
+    }
+
+    .container{
+      max-width:1000px;
+      margin:auto;
+      padding:40px 20px;
+    }
+
+    h1{
+      font-size:50px;
+      margin-bottom:10px;
+    }
+
+    h2{
+      margin-top:60px;
+      color:#5eead4;
+      font-size:34px;
+    }
+
+    h3{
+      margin-top:40px;
+      color:#93c5fd;
+    }
+
+    p{
+      font-size:18px;
+    }
+
+    pre{
+      background:#18181b;
+      padding:20px;
+      border-radius:12px;
+      overflow:auto;
+      border:1px solid #2a2a2d;
+    }
+
+    code{
+      color:#d1d5db;
+    }
+
+    .step{
+      background:#18181b;
+      padding:30px;
+      border-radius:16px;
+      margin-top:30px;
+      border:1px solid #2a2a2d;
+    }
+
+    .note{
+      background:#10212b;
+      padding:20px;
+      border-left:5px solid #38bdf8;
+      margin-top:20px;
+      border-radius:10px;
+    }
+
+  </style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>Clone do Jogo Termo</h1>
+
+<p>
+Neste tutorial iremos desenvolver um clone simples do jogo Termo
+utilizando HTML, CSS e JavaScript puro.
+</p>
+
+<p>
+O objetivo deste projeto é praticar lógica de programação,
+manipulação do DOM, eventos e estilização web.
+</p>
+
+<h2>Pré-requisitos</h2>
+
+<p>
+Antes de começar, é recomendado possuir conhecimentos básicos sobre:
+</p>
+
+<ul>
+  <li>HTML</li>
+  <li>CSS</li>
+  <li>JavaScript</li>
+</ul>
+
+<div class="note">
+Este projeto foi desenvolvido sem frameworks externos.
+</div>
+
+<h2>Estrutura do Projeto</h2>
+
+<p>
+A estrutura da pasta será:
+</p>
+
+<pre><code>termo-clone/
+
+index.html
+style.css
+script.js
+tutorial.html</code></pre>
+
+<h2>Passo 1 - Criando o HTML</h2>
+
+<div class="step">
+
+<p>
+O primeiro passo é criar a estrutura principal do jogo.
+</p>
+
+<p>
+No arquivo <strong>index.html</strong>, começaremos criando
+o título, o tabuleiro e o formulário.
+</p>
+
+<pre><code>&lt;div class="game"&gt;
+
+  &lt;h1&gt;TERMO&lt;/h1&gt;
+
+  &lt;div id="board"&gt;&lt;/div&gt;
+
+  &lt;form id="form"&gt;
+
+    &lt;input
+      id="input"
+      type="text"
+      maxlength="5"
+    &gt;
+
+    &lt;button&gt;Enviar&lt;/button&gt;
+
+  &lt;/form&gt;
+
+&lt;/div&gt;</code></pre>
+
+<p>
+A div com id <strong>board</strong> será responsável
+por armazenar as tentativas do jogador.
+</p>
+
+<p>
+O formulário será utilizado para enviar palavras.
+</p>
+
+</div>
+
+<h2>Passo 2 - Estilizando o Projeto</h2>
+
+<div class="step">
+
+<p>
+Agora iremos estilizar o jogo utilizando CSS.
+</p>
+
+<p>
+No arquivo <strong>style.css</strong>, começamos definindo
+o fundo da página.
+</p>
+
+<pre><code>body{
+  margin:0;
+  background:#121213;
+  color:white;
+  font-family:Arial;
+}</code></pre>
+
+<p>
+Em seguida criamos os quadrados das letras.
+</p>
+
+<pre><code>.tile{
+  width:60px;
+  height:60px;
+  border:2px solid #3a3a3c;
+}</code></pre>
+
+<p>
+Esses quadrados representam cada letra digitada pelo jogador.
+</p>
+
+<h3>Adicionando cores</h3>
+
+<p>
+Agora iremos adicionar as cores utilizadas pelo jogo.
+</p>
+
+<pre><code>.correct{
+  background:green;
+}
+
+.present{
+  background:goldenrod;
+}
+
+.absent{
+  background:gray;
+}</code></pre>
+
+<p>
+Cada classe representa uma situação:
+</p>
+
+<ul>
+  <li>Verde → letra correta na posição correta</li>
+  <li>Amarelo → letra existe mas está na posição errada</li>
+  <li>Cinza → letra inexistente</li>
+</ul>
+
+</div>
+
+<h2>Passo 3 - Criando a lógica do jogo</h2>
+
+<div class="step">
+
+<p>
+Agora iremos desenvolver a lógica principal utilizando JavaScript.
+</p>
+
+<p>
+Primeiramente criamos a palavra secreta.
+</p>
+
+<pre><code>const SECRET = "REACT";</code></pre>
+
+<p>
+Essa constante armazena a palavra que o jogador deve descobrir.
+</p>
+
+<h3>Capturando elementos</h3>
+
+<pre><code>const board = document.getElementById("board");
+const form = document.getElementById("form");
+const input = document.getElementById("input");</code></pre>
+
+<p>
+Essas variáveis capturam elementos do HTML.
+</p>
+
+<h3>Escutando o formulário</h3>
+
+<pre><code>form.addEventListener("submit", function(e){
+
+  e.preventDefault();
+
+});</code></pre>
+
+<p>
+O método preventDefault impede que a página recarregue.
+</p>
+
+</div>
+
+<h2>Passo 4 - Criando as tentativas</h2>
+
+<div class="step">
+
+<p>
+Agora iremos criar as linhas dinamicamente.
+</p>
+
+<pre><code>function createRow(word){
+
+  const row = document.createElement("div");
+
+  row.classList.add("row");
+
+}</code></pre>
+
+<p>
+Essa função cria uma nova linha para cada tentativa.
+</p>
+
+<h3>Criando as letras</h3>
+
+<pre><code>const tile = document.createElement("div");
+
+tile.classList.add("tile");
+
+tile.textContent = word[i];</code></pre>
+
+<p>
+Cada letra será colocada dentro de um quadrado.
+</p>
+
+</div>
+
+<h2>Passo 5 - Verificando letras</h2>
+
+<div class="step">
+
+<p>
+Agora iremos comparar a palavra digitada com a palavra secreta.
+</p>
+
+<pre><code>if(word[i] === SECRET[i]){
+
+  tile.classList.add("correct");
+
+}</code></pre>
+
+<p>
+Esse trecho verifica se a letra está correta
+e na posição correta.
+</p>
+
+<pre><code>else if(SECRET.includes(word[i])){
+
+  tile.classList.add("present");
+
+}</code></pre>
+
+<p>
+Aqui verificamos se a letra existe,
+mas está na posição errada.
+</p>
+
+</div>
+
+<h2>Passo 6 - Sistema de vitória</h2>
+
+<div class="step">
+
+<pre><code>if(guess === SECRET){
+
+  message.textContent = "Você venceu!";
+
+}</code></pre>
+
+<p>
+Quando o jogador descobre a palavra,
+uma mensagem de vitória aparece.
+</p>
+
+</div>
+
+<h2>Passo 7 - Sistema de derrota</h2>
+
+<div class="step">
+
+<pre><code>if(attempts >= 6){
+
+  message.textContent = "Você perdeu!";
+
+}</code></pre>
+
+<p>
+O jogador possui no máximo 6 tentativas.
+</p>
+
+</div>
+
+<h2>Resultado Final</h2>
+
+<div class="step">
+
+<p>
+Ao finalizar o projeto, teremos um clone funcional
+do jogo Termo.
+</p>
+
+<p>
+O projeto utiliza:
+</p>
+
+<ul>
+  <li>Manipulação do DOM</li>
+  <li>Eventos</li>
+  <li>Funções</li>
+  <li>Estruturas condicionais</li>
+  <li>Estilização com CSS</li>
+</ul>
+
+</div>
+
+<h2>Conclusão</h2>
+
+<p>
+Este projeto permitiu aplicar conceitos fundamentais
+do desenvolvimento web front-end.
+</p>
+
+<p>
+O jogo pode futuramente receber melhorias como:
+</p>
+
+<ul>
+  <li>Banco de palavras</li>
+  <li>Animações</li>
+  <li>Teclado virtual</li>
+  <li>Sistema de pontuação</li>
+  <li>Modo escuro/claro</li>
+</ul>
+
+</div>
+
+</body>
+</html>
